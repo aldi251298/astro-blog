@@ -1,0 +1,20 @@
+backend:
+  name: github
+  repo: https://github.com/aldi251298/astro-blog.git       # ganti dengan repo-mu
+  branch: main                   # cabang default
+
+media_folder: "public/uploads"   # tempat file gambar di-build
+public_folder: "/uploads"
+
+collections:
+  - name: "posts"
+    label: "Posts"
+    folder: "content/posts"      # tempat file markdown disimpan
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Excerpt", name: "excerpt", widget: "text" }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Tags", name: "tags", widget: "list" }
