@@ -3,12 +3,43 @@
   <head>
     <meta charset="utf-8" />
     <title>CMS Login</title>
-    <script src="https://unpkg.com/netlify-cms-app@^2.0.0/dist/netlify-cms.js"></script>
+    <!-- Beri tahu CMS kita akan manual init -->
+    <script>window.CMS_MANUAL_INIT = true;</script>
+    <!-- Masukkan bundle netlify-cms yang benar -->
+    <script src="https://unpkg.com/netlify-cms@^2.20.0/dist/netlify-cms.js"></script>
   </head>
   <body>
-    <!-- CMS will mount here -->
+    <!-- Tempat CMS mounting -->
+    <div id="nc-root"></div>
     <script>
-      NetlifyCmsApp.init();
+      // Inisialisasi manual dengan konfigurasi embedded
+      CMS.init({
+        config: {
+          backend: {
+            name: 'github',
+            repo: 'aldi251298/astro-blog.git',  // ← ganti sesuai GitHub repo kamu
+            branch: 'main',
+          },
+          media_folder: 'public/uploads',
+          public_folder: '/uploads',
+          collections: [
+            {
+              name: 'posts',
+              label: 'Posts',
+              folder: 'content/posts',
+              create: true,
+              slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
+              fields: [
+                { label: 'Title', name: 'title', widget: 'string' },
+                { label: 'Date',  name: 'date',  widget: 'datetime' },
+                { label: 'Excerpt', name: 'excerpt', widget: 'text' },
+                { label: 'Body',   name: 'body',   widget: 'markdown' },
+                { label: 'Tags',   name: 'tags',   widget: 'list' },
+              ],
+            },
+          ],
+        },
+      });
     </script>
   </body>
 </html>
